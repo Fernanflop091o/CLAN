@@ -356,8 +356,7 @@ local function togglePanel()
 end
 MainButton.MouseButton1Click:Connect(togglePanel)
 
-local HttpService = game:GetService("HttpService")
-
+-- Función para crear el interruptor con modelo similar
 local function createSwitchModel(parent, position)
     local switchButton = Instance.new("TextButton")
     switchButton.Parent = parent
@@ -365,12 +364,14 @@ local function createSwitchModel(parent, position)
     switchButton.BorderSizePixel = 0
     switchButton.Position = position  
     switchButton.Size = UDim2.new(0, 84, 0, 30)  
-    switchButton.Text = "" 
+    switchButton.Text = "" -- Eliminar el texto para que solo sea visible el botón
 
+    -- Esquinas redondeadas para el interruptor
     local switchButtonCorner = Instance.new("UICorner")
     switchButtonCorner.Parent = switchButton
     switchButtonCorner.CornerRadius = UDim.new(0.4, 0)
 
+    -- Añadir la bolita que se moverá
     local switchBall = Instance.new("Frame")
     switchBall.Parent = switchButton
     switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
@@ -378,6 +379,7 @@ local function createSwitchModel(parent, position)
     switchBall.Position = UDim2.new(0, 5, 0.5, -15)
     switchBall.BorderSizePixel = 0
 
+    -- Añadir esquinas redondeadas a la bolita
     local switchBallCorner = Instance.new("UICorner")
     switchBallCorner.Parent = switchBall
     switchBallCorner.CornerRadius = UDim.new(0.5, 0)  
@@ -385,14 +387,21 @@ local function createSwitchModel(parent, position)
     return switchButton, switchBall
 end
 
+-- Crear los interruptores
 local switchButton1, switchBall1 = createSwitchModel(MenuPanel, UDim2.new(0.1, 75, 0, 69))
 local switchButton2, switchBall2 = createSwitchModel(MenuPanel, UDim2.new(0.6, 75, 0, 69))
 local switchButton3, switchBall3 = createSwitchModel(MenuPanel, UDim2.new(0.285, 0, 0.2,36))
 
+-- Variables para controlar el estado de los bucles (inicialmente activos)
+local isLoop1Active = true
+local isLoop2Active = true
+local isLoop3Active = true
+
+-- Función para controlar el bucle 1
 local function loop1()
     while isLoop1Active do
-        wait()
-    local yo = game:GetService('Players').LocalPlayer
+        wait(1)
+local yo = game:GetService('Players').LocalPlayer
 local folderData = game.ReplicatedStorage.Datas[yo.UserId]
 local afk = game:service'VirtualUser'
 local statsRequeridosFarm = 4000
@@ -920,10 +929,19 @@ empezarFarm()
     end
 end
 
+-- Función para controlar el bucle 2
 local function loop2()
     while isLoop2Active do
-        wait()
-       wait(8)
+        wait(1)
+        -- Tu lógica para el bucle 2 aquí
+    end
+end
+
+-- Función para controlar el bucle 3
+local function loop3()
+    while isLoop3Active do
+        wait(0.001)
+      wait(8)
 if (game.PlaceId ~= 5151400895) then
     repeat
         wait()
@@ -981,7 +999,7 @@ RunService.RenderStepped:Connect(function()
     playerHumanoid.Health = math.huge
 end)
 
-while isLoop2Active and  true and wait() do
+while isLoop3Active and  true and wait() do
     if (stats.Strength.Value > 5000 and stats.Defense.Value > 5000 and stats.Energy.Value > 5000 and stats.Speed.Value >
         5000) then
         transform()
@@ -991,72 +1009,39 @@ end
     end
 end
 
-local function loop3()
-    while isLoop3Active do
-        wait()
-        -- Coloque aquí el código para el bucle 3
-    end
-end
-
+-- Función para cambiar el estado de los interruptores
 local function toggleSwitch(isActive, switchBall)
     if isActive then
-        switchBall.Position = UDim2.new(1, -35, 0.5, -15)
-        switchBall.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        switchBall.Position = UDim2.new(1, -35, 0.5, -15) -- Mover a la derecha cuando esté activo
+        switchBall.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Verde para ON
     else
-        switchBall.Position = UDim2.new(0, 5, 0.5, -15)
-        switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        switchBall.Position = UDim2.new(0, 5, 0.5, -15) -- Mover a la izquierda cuando esté inactivo
+        switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Rojo para OFF
     end
 end
 
-local function loadSwitchState(filePath)
-    local isLoopActive = false
-    if isfile(filePath) then
-        local fileContents = readfile(filePath)
-        if fileContents then
-            local switchData = HttpService:JSONDecode(fileContents)
-            if switchData and switchData.SwitchOn ~= nil then
-                isLoopActive = switchData.SwitchOn
-            end
-        end
-    end
-    return isLoopActive
-end
-
-local function saveSwitchState(filePath, isLoopActive)
-    local switchInfo = {
-        SwitchOn = isLoopActive,
-        LastModified = os.time()  -- Guardar la hora actual
-    }
-    writefile(filePath, HttpService:JSONEncode(switchInfo))
-end
-
+-- Conectar los interruptores
 switchButton1.MouseButton1Click:Connect(function()
     isLoop1Active = not isLoop1Active
     toggleSwitch(isLoop1Active, switchBall1)
-    saveSwitchState("Switch1_State.json", isLoop1Active)
-    coroutine.wrap(loop1)()
 end)
 
 switchButton2.MouseButton1Click:Connect(function()
     isLoop2Active = not isLoop2Active
     toggleSwitch(isLoop2Active, switchBall2)
-    saveSwitchState("Switch2_State.json", isLoop2Active)
-    coroutine.wrap(loop2)()
 end)
 
 switchButton3.MouseButton1Click:Connect(function()
     isLoop3Active = not isLoop3Active
     toggleSwitch(isLoop3Active, switchBall3)
-    saveSwitchState("Switch3_State.json", isLoop3Active)
-    coroutine.wrap(loop3)()
 end)
 
-isLoop1Active = loadSwitchState("Switch1_State.json")
-isLoop2Active = loadSwitchState("Switch2_State.json")
-isLoop3Active = loadSwitchState("Switch3_State.json")
-
+-- Aplicar el estado de los interruptores al cargar
 toggleSwitch(isLoop1Active, switchBall1)
 toggleSwitch(isLoop2Active, switchBall2)
 toggleSwitch(isLoop3Active, switchBall3)
 
-
+-- Ejecutar los bucles
+coroutine.wrap(loop1)()
+coroutine.wrap(loop2)()
+coroutine.wrap(loop3)()
