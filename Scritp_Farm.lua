@@ -855,7 +855,7 @@ function empezarFarm()
 				   while    isLoop1Active and  enemigo:FindFirstChild("Humanoid") and vidaEnemigo() and player() do
 					pcall(function()
 						spawn(function() 
-							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 1))
+							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 6))
 							pcall(function ()
 								statsPlayerFarmSa()
 							end)
@@ -863,7 +863,7 @@ function empezarFarm()
 						spawn(function() 
 							if ki() >= kiRequerido() and valorMinimo() >= 4000 and  isLoop3Active then
 								ataqueEnergy(frameEnemigo(), vidaEnemigo())
-								wait(1)
+								wait()
 							else
 								game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27", 1)
 							end
@@ -880,13 +880,13 @@ function empezarFarm()
 					wait()
 				end
 				if misionSeleccionada() == '' then
-					wait(2)
+					wait()
 				end
 				if yo.Character.Humanoid.Health <= 0 then
 					repeat
 						wait()
 					until yo.Character.Humanoid.Health > 0
-					wait(1)
+					wait()
 					fly()
 				end
 			end
