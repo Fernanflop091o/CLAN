@@ -451,9 +451,9 @@ local multiQuest = {
 		{nombre= "Wukong Rose",minimo = 4500000000},
 		{nombre= "Vekuta (LBSSJ4)",minimo = 3700000000},
 		{nombre= "Wukong (LBSSJ4)",minimo = 3000000000},
-		{nombre= "Vegetable (LBSSJ4)",minimo = 1700000000},
-		{nombre= "Vis (20%)",minimo = 1200000000},
-		{nombre= "Vills (50%)",minimo = 600000000},
+		{nombre= "Vegetable (LBSSJ4)",minimo = 1400000000},
+		{nombre= "Vis (20%)",minimo = 8000000000},
+		{nombre= "Vills (50%)",minimo = 470000000},
 		{nombre= "Wukong (Omen)",minimo = 300000000},
 		{nombre= "Vegetable (GoD in-training)",minimo = 170000000},
 	}
