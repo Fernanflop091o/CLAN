@@ -683,14 +683,7 @@ end
 local function fly()
 	local succes,fallo = pcall(function ()
 	wait()
-		keypress(Enum.KeyCode.Space)
-		task.wait()
-		keyrelease(Enum.KeyCode.Space)
-		task.wait()
-		keypress(Enum.KeyCode.Space)
-		task.wait()
-		keyrelease(Enum.KeyCode.Space)
-		task.wait()
+		        loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/HEALT.lua"))()
 	end)
 	if fallo then
 		warn('fly error '..fallo)
@@ -994,10 +987,6 @@ local function transform()
     end)
 end
 
-local RunService = game:GetService("RunService")
-RunService.RenderStepped:Connect(function()
-    playerHumanoid.Health = math.huge
-end)
 
 while isLoop3Active and  true and wait() do
     if (stats.Strength.Value > 5000 and stats.Defense.Value > 5000 and stats.Energy.Value > 5000 and stats.Speed.Value >
