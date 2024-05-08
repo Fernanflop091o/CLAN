@@ -682,7 +682,6 @@ end
 local function fly()
 	local succes,fallo = pcall(function ()
 	wait()
-	    loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/Destruir2.lua"))()
 		        loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/HEALT.lua"))()
 	end)
 	if fallo then
@@ -713,7 +712,6 @@ local function ataquesParaStats()
 end
 
 local function aver(enlace)
-
 end
 
 local function flyi()
