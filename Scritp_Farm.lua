@@ -451,7 +451,7 @@ local multiQuest = {
 		{nombre= "Vegetable (LBSSJ4)",minimo = 1400000000},
 		{nombre= "Vis (20%)",minimo = 8000000000},
 		{nombre= "Vills (50%)",minimo = 470000000},
-		{nombre= "Wukong (Omen)",minimo = 330000000},
+		{nombre= "Wukong (Omen)",minimo = 300000000},
 		{nombre= "Vegetable (GoD in-training)",minimo = 170000000},
 	}
 }
@@ -1016,7 +1016,7 @@ function checkMission()
 end
 
 -- Verifica periódicamente si el jugador está en una misión y lo teletransporta al boss si es así
-while true do
+while isLoop4Active and true do
     wait() -- Intervalo de verificación (1 segundo en este caso)
     checkMission()
 end
