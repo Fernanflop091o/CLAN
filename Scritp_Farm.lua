@@ -1,17 +1,18 @@
+
 local player = game.Players.LocalPlayer
 local Players = game:GetService("Players")
 local ScreenGui = Instance.new("ScreenGui")
 local TextLabel = Instance.new("TextLabel")
-local MinimizeButton = Instance.new("TextButton")
-local ButtonCorner = Instance.new("UICorner")
-local TweenService = game:GetService("TweenService")
-local MenuPanel = Instance.new("Frame")
+local missionTextLabel = Instance.new("TextLabel")
 local farmLabel = Instance.new("TextLabel")
 local formsLabel = Instance.new("TextLabel")
 local meleeLabel = Instance.new("TextLabel")
+local tpLabel = Instance.new("TextLabel")
 local farmButton = Instance.new("TextButton")
 local formsButton = Instance.new("TextButton")
 local playersButton = Instance.new("TextButton")
+local MinimizeButton = Instance.new("TextButton")
+local MainButton = Instance.new("TextButton")
 local leftLine = Instance.new("Frame")
 local rightLine = Instance.new("Frame")
 local topLine = Instance.new("Frame")
@@ -20,12 +21,18 @@ local centerLine = Instance.new("Frame")
 local upperLine = Instance.new("Frame")
 local middleLine = Instance.new("Frame")
 local frontSwitchLine = Instance.new("Frame")
+local MenuPanel = Instance.new("Frame")
+local ButtonCorner = Instance.new("UICorner")
+local TweenService = game:GetService("TweenService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local missionTextLabel = Instance.new("TextLabel")
-local Panel = Instance.new("ImageLabel") -- Cambiado de Frame a ImageLabel
-local MainButton = Instance.new("TextButton")
+local Panel = Instance.new("ImageLabel")
 local sound = Instance.new("Sound", game.Workspace)
-
+local panelExpanded = false
+local imageLabel = Instance.new("ImageLabel")
+local userId = player.UserId
+local thumbnailType = Enum.ThumbnailType.HeadShot
+local thumbnailSize = Enum.ThumbnailSize.Size48x48
+local thumbnailUrl = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
 
 ScreenGui.Name = "Fernando"
@@ -198,13 +205,65 @@ meleeLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
 meleeLabel.TextStrokeTransparency = 0
 
 
+tpLabel.Parent = MenuPanel
+tpLabel.BackgroundTransparency = 1
+tpLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+tpLabel.BorderSizePixel = 0
+tpLabel.Position = UDim2.new(0.392, 30, 0.2,22)
+tpLabel.Size = UDim2.new(0, 89, 0, 60)
+tpLabel.Font = Enum.Font.SourceSans
+tpLabel.Text = "Tp"
+tpLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+tpLabel.TextScaled = true
+tpLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+tpLabel.TextStrokeTransparency = 0
+
+MainButton.Parent = ScreenGui
+MainButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainButton.BorderSizePixel = 0
+MainButton.Position = UDim2.new(0.1, 39, 0, -32)
+MainButton.Size = UDim2.new(0, 70, 0, 30)
+MainButton.Font = Enum.Font.SourceSans
+MainButton.Text = "Creador"
+MainButton.TextColor3 = Color3.fromRGB(0, 0, 255)
+MainButton.TextSize = 18
+
+Panel.Parent = ScreenGui
+Panel.BackgroundTransparency = 1
+Panel.Position = UDim2.new(0.1, 39, 0, 60)
+Panel.Size = UDim2.new(0, 70, 0, 0)
+Panel.SizeConstraint = Enum.SizeConstraint.RelativeYY 
+Panel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+Panel.ScaleType = Enum.ScaleType.Fit 
+Panel.SliceCenter = Rect.new(10, 10, 10, 10)
+
+
+imageLabel.Parent = MenuPanel
+imageLabel.Size = UDim2.new(0, 48, 0, 48) 
+imageLabel.Position = UDim2.new(1, -58, 0.8, 30) 
+imageLabel.BackgroundTransparency = 1 
+imageLabel.Image = thumbnailUrl
+
+
+missionTextLabel.Name = "TextLabel"
+missionTextLabel.Size = UDim2.new(0, 200, 0, 30)
+missionTextLabel.Position = UDim2.new(0.5, 40, 0, 0)
+missionTextLabel.AnchorPoint = Vector2.new(0.5, 0) 
+missionTextLabel.BackgroundTransparency = 1
+missionTextLabel.Font = Enum.Font.SourceSans 
+missionTextLabel.TextSize = 17 -- Tamaño de letra pequeño
+missionTextLabel.TextColor3 = Color3.fromRGB(128, 128, 128) 
+missionTextLabel.TextStrokeTransparency = 0 
+missionTextLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 255) 
+missionTextLabel.Parent = TextLabel
+
 
 local TweenService = game:GetService("TweenService")
 local colorArray = {
-    Color3.fromRGB(255, 255, 0),   -- Amarillo
-    Color3.fromRGB(255, 0, 0),     -- Rojo
-    Color3.fromRGB(139, 69, 19),   -- Café
-    Color3.fromRGB(255, 165, 0)    -- Naranja
+    Color3.fromRGB(255, 255, 0),   
+    Color3.fromRGB(255, 0, 0),     
+    Color3.fromRGB(139, 69, 19), 
+    Color3.fromRGB(255, 165, 0)
 }
 
 local colorChangeTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
@@ -272,70 +331,13 @@ MinimizeButton.MouseButton1Click:Connect(function()
 end)
 
 
---Perfil
-
-local function showPlayerThumbnail()
-    local userId = player.UserId
-    local thumbnailType = Enum.ThumbnailType.HeadShot
-    local thumbnailSize = Enum.ThumbnailSize.Size48x48
-    
-    local thumbnailUrl = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
-    
-    local imageLabel = Instance.new("ImageLabel")
-    imageLabel.Parent = MenuPanel
-    imageLabel.Size = UDim2.new(0, 48, 0, 48) 
-    imageLabel.Position = UDim2.new(1, -58, 0.8, 30) 
-    imageLabel.BackgroundTransparency = 1 
-    imageLabel.Image = thumbnailUrl
-end
-
-showPlayerThumbnail()
-
-missionTextLabel.Name = "TextLabel"
-missionTextLabel.Size = UDim2.new(0, 200, 0, 30)
-missionTextLabel.Position = UDim2.new(0.5, 40, 0, 0)
-missionTextLabel.AnchorPoint = Vector2.new(0.5, 0) 
-missionTextLabel.BackgroundTransparency = 1
-missionTextLabel.Font = Enum.Font.SourceSans 
-missionTextLabel.TextSize = 17 -- Tamaño de letra pequeño
-missionTextLabel.TextColor3 = Color3.fromRGB(128, 128, 128) 
-missionTextLabel.TextStrokeTransparency = 0 
-missionTextLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 255) 
-missionTextLabel.Parent = TextLabel
-
-
 local function updateMissionName()
     local currentMission = ReplicatedStorage.Datas[Players.LocalPlayer.UserId].Quest.Value
     missionTextLabel.Text = "Misión actual: " .. currentMission
 end
 
-
 updateMissionName()
 ReplicatedStorage.Datas[Players.LocalPlayer.UserId].Quest:GetPropertyChangedSignal("Value"):Connect(updateMissionName)
-
-
-
-
-MainButton.Parent = ScreenGui
-MainButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-MainButton.BorderSizePixel = 0
-MainButton.Position = UDim2.new(0.1, 39, 0, -32)
-MainButton.Size = UDim2.new(0, 70, 0, 30)
-MainButton.Font = Enum.Font.SourceSans
-MainButton.Text = "Creador"
-MainButton.TextColor3 = Color3.fromRGB(0, 0, 255)
-MainButton.TextSize = 18
-
-Panel.Parent = ScreenGui
-Panel.BackgroundTransparency = 1
-Panel.Position = UDim2.new(0.1, 39, 0, 60)
-Panel.Size = UDim2.new(0, 70, 0, 0)
-Panel.SizeConstraint = Enum.SizeConstraint.RelativeYY 
-Panel.ImageColor3 = Color3.fromRGB(255, 255, 255)
-Panel.ScaleType = Enum.ScaleType.Fit 
-Panel.SliceCenter = Rect.new(10, 10, 10, 10)
-
-local panelExpanded = false
 
 local function togglePanel()
     panelExpanded = not panelExpanded
@@ -354,57 +356,52 @@ local function togglePanel()
     panelTween:Play()
     MainButton.Text = targetText
 end
-MainButton.MouseButton1Click:Connect(togglePanel)
 
--- Función para crear el interruptor con modelo similar
-local function createSwitchModel(parent, position)
-    local switchButton = Instance.new("TextButton")
-    switchButton.Parent = parent
-    switchButton.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
-    switchButton.BorderSizePixel = 0
-    switchButton.Position = position  
-    switchButton.Size = UDim2.new(0, 84, 0, 30)  
-    switchButton.Text = "" -- Eliminar el texto para que solo sea visible el botón
+local function initSwitches(MenuPanel)
+    local function createSwitchModel(parent, position)
+        local switchButton = Instance.new("TextButton")
+        switchButton.Parent = parent
+        switchButton.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+        switchButton.BorderSizePixel = 0
+        switchButton.Position = position  
+        switchButton.Size = UDim2.new(0, 84, 0, 30)  
+        switchButton.Text = "" 
 
-    -- Esquinas redondeadas para el interruptor
-    local switchButtonCorner = Instance.new("UICorner")
-    switchButtonCorner.Parent = switchButton
-    switchButtonCorner.CornerRadius = UDim.new(0.4, 0)
+        local switchButtonCorner = Instance.new("UICorner")
+        switchButtonCorner.Parent = switchButton
+        switchButtonCorner.CornerRadius = UDim.new(0.4, 0)
 
-    -- Añadir la bolita que se moverá
-    local switchBall = Instance.new("Frame")
-    switchBall.Parent = switchButton
-    switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    switchBall.Size = UDim2.new(0, 30, 0, 30)
-    switchBall.Position = UDim2.new(0, 5, 0.5, -15)
-    switchBall.BorderSizePixel = 0
+        local switchBall = Instance.new("Frame")
+        switchBall.Parent = switchButton
+        switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        switchBall.Size = UDim2.new(0, 30, 0, 30)
+        switchBall.Position = UDim2.new(0, 5, 0.5, -15)
+        switchBall.BorderSizePixel = 0
 
-    -- Añadir esquinas redondeadas a la bolita
-    local switchBallCorner = Instance.new("UICorner")
-    switchBallCorner.Parent = switchBall
-    switchBallCorner.CornerRadius = UDim.new(0.5, 0)  
+        local switchBallCorner = Instance.new("UICorner")
+        switchBallCorner.Parent = switchBall
+        switchBallCorner.CornerRadius = UDim.new(0.5, 0)  
 
-    return switchButton, switchBall
-end
+        return switchButton, switchBall
+    end
 
--- Crear los interruptores
-local switchButton1, switchBall1 = createSwitchModel(MenuPanel, UDim2.new(0.1, 75, 0, 69))
-local switchButton2, switchBall2 = createSwitchModel(MenuPanel, UDim2.new(0.6, 75, 0, 69))
-local switchButton3, switchBall3 = createSwitchModel(MenuPanel, UDim2.new(0.285, 0, 0.2,36))
+    local switchButton1, switchBall1 = createSwitchModel(MenuPanel, UDim2.new(0.1, 75, 0, 69))
+    local switchButton2, switchBall2 = createSwitchModel(MenuPanel, UDim2.new(0.6, 75, 0, 69))
+    local switchButton3, switchBall3 = createSwitchModel(MenuPanel, UDim2.new(0.285, 0, 0.2,36))
+    local switchButton4, switchBall4 = createSwitchModel(MenuPanel, UDim2.new(0.590, 62, 0.1, 77))
 
--- Variables para controlar el estado de los bucles (inicialmente activos)
-local isLoop1Active = true
-local isLoop2Active = true
-local isLoop3Active = true
+    local isLoop1Active = true
+    local isLoop2Active = true
+    local isLoop3Active = true
+    local isLoop4Active = true
 
--- Función para controlar el bucle 1
-local function loop1()
-    while isLoop1Active do
-        wait(1)
-local yo = game:GetService('Players').LocalPlayer
+    local function loop1()
+        while isLoop1Active do
+            wait(1)
+ local yo = game:GetService('Players').LocalPlayer
 local folderData = game.ReplicatedStorage.Datas[yo.UserId]
 local afk = game:service'VirtualUser'
-local statsRequeridosFarm = 4000
+local statsRequeridosFarm = 6000
 local events = game.ReplicatedStorage.Package.Events
 local equipRemote = game:GetService("ReplicatedStorage").Package.Events.equipskill 
 local cargaAndBloqueo = true
@@ -441,10 +438,10 @@ local multiQuest = {
 		{nombre= "Perfect Atom",minimo = 875000},
 		{nombre= "Chilly",minimo = 550000},
 		{nombre= "Super Vegetable",minimo = 187500},
-		{nombre= "Mapa",minimo = 50000},
-		{nombre= "Radish",minimo = 39000},
+		{nombre= "Mapa",minimo = 70000},
+		{nombre= "Radish",minimo = 45000},
 		{nombre= "Kid Nohag",minimo = 30000},
-		{nombre= "Klirin",minimo = 4000},
+		{nombre= "Klirin",minimo = 6000},
 	},
 	bossBills = {
 		{nombre= "Vekuta (SSJBUI)",minimo = 5000000000},
@@ -454,7 +451,7 @@ local multiQuest = {
 		{nombre= "Vegetable (LBSSJ4)",minimo = 1400000000},
 		{nombre= "Vis (20%)",minimo = 8000000000},
 		{nombre= "Vills (50%)",minimo = 470000000},
-		{nombre= "Wukong (Omen)",minimo = 300000000},
+		{nombre= "Wukong (Omen)",minimo = 330000000},
 		{nombre= "Vegetable (GoD in-training)",minimo = 170000000},
 	}
 }
@@ -512,15 +509,9 @@ end
 function iniciarJuego()
 	local player = game.Players.LocalPlayer
 	local data = game.ReplicatedStorage.Datas[player.UserId]
-loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/Destroy.lua"))()
-	if data.Strength.Value>=8000000 then
-		wait(5)
-		game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer("Godly SSJ2")
-		game:GetService("ReplicatedStorage").Package.Events.ta:InvokeServer()
-	else
-		wait(4.95)
-		game:GetService("ReplicatedStorage").Package.Events.equipskill:InvokeServer("Mystic")
-		game:GetService("ReplicatedStorage").Package.Events.ta:InvokeServer()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/Destroy.lua"))()
+	if data.Strength.Value>=0000 then
+	game.Workspace.Gravity = Vector3.new(0, 0, 0)
 	end
 	task.wait()
 end
@@ -846,7 +837,7 @@ function empezarFarm()
 				   while    isLoop1Active and  enemigo:FindFirstChild("Humanoid") and vidaEnemigo() and player() do
 					pcall(function()
 						spawn(function() 
-							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 6))
+							sigueEnemigo(frameEnemigo() * CFrame.nw(0, 0, 6))
 							pcall(function ()
 								statsPlayerFarmSa()
 							end)
@@ -917,22 +908,23 @@ task.wait()
 
 
 empezarFarm()
+        end
     end
-end
 
--- Función para controlar el bucle 2
-local function loop2()
-    while isLoop2Active do
-        wait(1)
-        -- Tu lógica para el bucle 2 aquí
+    local function loop2()
+        while isLoop2Active do
+            wait()
+                while isLoop2Active and true do 
+      			local args = {[1] = true}
+					game:GetService("ReplicatedStorage").Package.Events.block:InvokeServer(unpack(args))
+		    end
+        end
     end
-end
 
--- Función para controlar el bucle 3
-local function loop3()
-    while isLoop3Active do
-        wait(0.001)
-      wait(8)
+    local function loop3()
+        while isLoop3Active do
+            wait(1)
+         wait(8)
 if (game.PlaceId ~= 5151400895) then
     repeat
         wait()
@@ -950,7 +942,6 @@ local HttpService = game:GetService("HttpService")
 local player = game:GetService("Players").LocalPlayer
 repeat
     wait()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LUATT11/Lua/main/Fly.lua"))()
 until player.CharacterAdded
 local userId = player.UserId
 
@@ -993,42 +984,94 @@ while isLoop3Active and  true and wait() do
   game:GetService("ReplicatedStorage").Package.Events.AuraTrigger:InvokeServer()
     end
 end
+        end
+    end
+
+    local function loop4()
+        while isLoop4Active do
+            wait(1)
+wait()
+
+local player = game.Players.LocalPlayer
+local npcPosition = CFrame.new(0, 0, 3) -- Ajusta la posición del NPC según sea necesario
+
+function returnQuest(useObjective)
+    return game:GetService("ReplicatedStorage").Datas[player.UserId].Quest.Value
+end
+
+function teleportToBoss(boss)
+    local humanoidRootPart = player.Character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = boss.HumanoidRootPart.CFrame * npcPosition
+end
+
+function checkMission()
+    local missionName = returnQuest(true)
+    if missionName ~= "" then
+        local boss = game.Workspace.Living:FindFirstChild(missionName)
+        if boss then
+            teleportToBoss(boss)
+        else
+        end
     end
 end
 
--- Función para cambiar el estado de los interruptores
-local function toggleSwitch(isActive, switchBall)
-    if isActive then
-        switchBall.Position = UDim2.new(1, -35, 0.5, -15) -- Mover a la derecha cuando esté activo
-        switchBall.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Verde para ON
-    else
-        switchBall.Position = UDim2.new(0, 5, 0.5, -15) -- Mover a la izquierda cuando esté inactivo
-        switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Rojo para OFF
-    end
+-- Verifica periódicamente si el jugador está en una misión y lo teletransporta al boss si es así
+while true do
+    wait() -- Intervalo de verificación (1 segundo en este caso)
+    checkMission()
 end
+ 
+        end
+    end
 
--- Conectar los interruptores
-switchButton1.MouseButton1Click:Connect(function()
-    isLoop1Active = not isLoop1Active
+    local function toggleSwitch(isActive, switchBall)
+        if isActive then
+            switchBall.Position = UDim2.new(1, -35, 0.5, -15)
+            switchBall.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  
+        else
+            switchBall.Position = UDim2.new(0, 5, 0.5, -15) 
+            switchBall.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        end
+    end
+
+    switchButton1.MouseButton1Click:Connect(function()
+        isLoop1Active = not isLoop1Active
+        toggleSwitch(isLoop1Active, switchBall1)
+        loop1() 
+    end)
+    
+    switchButton2.MouseButton1Click:Connect(function()
+        isLoop2Active = not isLoop2Active
+        toggleSwitch(isLoop2Active, switchBall2)
+        loop2() 
+    end)
+    
+    switchButton3.MouseButton1Click:Connect(function()
+        isLoop3Active = not isLoop3Active
+        toggleSwitch(isLoop3Active, switchBall3)
+        loop3() 
+    end)
+    
+    switchButton4.MouseButton1Click:Connect(function()
+        isLoop4Active = not isLoop4Active
+        toggleSwitch(isLoop4Active, switchBall4)
+        loop4() 
+    end)
+
     toggleSwitch(isLoop1Active, switchBall1)
-end)
-
-switchButton2.MouseButton1Click:Connect(function()
-    isLoop2Active = not isLoop2Active
     toggleSwitch(isLoop2Active, switchBall2)
-end)
-
-switchButton3.MouseButton1Click:Connect(function()
-    isLoop3Active = not isLoop3Active
     toggleSwitch(isLoop3Active, switchBall3)
-end)
+    toggleSwitch(isLoop4Active, switchBall4)
+    
+     coroutine.wrap(loop1)()
+    coroutine.wrap(loop2)()
+    coroutine.wrap(loop3)()
+    coroutine.wrap(loop4)()
+end
 
--- Aplicar el estado de los interruptores al cargar
-toggleSwitch(isLoop1Active, switchBall1)
-toggleSwitch(isLoop2Active, switchBall2)
-toggleSwitch(isLoop3Active, switchBall3)
-
--- Ejecutar los bucles
-coroutine.wrap(loop1)()
-coroutine.wrap(loop2)()
-coroutine.wrap(loop3)()
+initSwitches(MenuPanel)
+            MainButton.MouseButton1Click:Connect(togglePanel)
+               showPlayerThumbnail()
+               
+    
+ 
