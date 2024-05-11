@@ -1,4 +1,5 @@
 
+
 local player = game.Players.LocalPlayer
 local Players = game:GetService("Players")
 local ScreenGui = Instance.new("ScreenGui")
@@ -170,7 +171,7 @@ farmLabel.BorderSizePixel = 0
 farmLabel.Position = UDim2.new(0.1, -30, 0, 53)
 farmLabel.Size = UDim2.new(0, 89, 0, 60)
 farmLabel.Font = Enum.Font.SourceSans
-farmLabel.Text = "Farm"
+farmLabel.Text = "Mission"
 farmLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 farmLabel.TextScaled = true
 farmLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
@@ -257,7 +258,6 @@ missionTextLabel.TextStrokeTransparency = 0
 missionTextLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 255) 
 missionTextLabel.Parent = TextLabel
 
-
 local TweenService = game:GetService("TweenService")
 local colorArray = {
     Color3.fromRGB(255, 255, 0),   
@@ -321,6 +321,7 @@ MinimizeButton.MouseButton1Click:Connect(function()
        sound:Play()
         wait(0.5)
         MenuPanel.Visible = false
+
     else
         MenuPanel.Visible = true
         expandTween:Play()
@@ -397,11 +398,11 @@ local function initSwitches(MenuPanel)
 
     local function loop1()
         while isLoop1Active do
-            wait(1)
-		 local yo = game:GetService('Players').LocalPlayer
+            wait()
+            		 local yo = game:GetService('Players').LocalPlayer
 local folderData = game.ReplicatedStorage.Datas[yo.UserId]
 local afk = game:service'VirtualUser'
-local statsRequeridosFarm = 4000
+local statsRequeridosFarm = 6000
 local events = game.ReplicatedStorage.Package.Events
 local equipRemote = game:GetService("ReplicatedStorage").Package.Events.equipskill 
 local cargaAndBloqueo = true
@@ -416,16 +417,16 @@ local arregloAtaques = {
 	{name = "Spirit Barrage",requerido = millon * 60},
 	{name = "Super Dragon Fist",requerido = millon * 50},
 	{name = "Flash Kick",requerido = millon / 2},
-	{name = "Spirit Breaking Cannon",requerido = 200000},
-	{name = "Mach Kick",requerido = 60000},
-    {name = "Vital Stike",requerido = 50700},
-	{name = "High Power Rush",requerido = 65000},
-	{name = "Meteor Crash",requerido = 28000},
-	{name = "Wolf Fang Fist",requerido = 2000},
-	{name = "sledgehammer",requerido = 93000},
-	{name = "Uppercut",requerido = 50000},
-	{name = "Bone Crusher",requerido = 98000},
-	{name = "Vanish Strike",requerido = 90000},
+	{name = "Spirit Breaking Cannon",requerido = 0},
+	{name = "Mach Kick",requerido = 0},
+    {name = "Vital Stike",requerido = 0},
+	{name = "High Power Rush",requerido = 0},
+	{name = "Meteor Crash",requerido = 0},
+	{name = "Wolf Fang Fist",requerido = 0},
+	{name = "sledgehammer",requerido = 0},
+	{name = "Uppercut",requerido = 0},
+	{name = "Bone Crusher",requerido = 0},
+	{name = "Vanish Strike",requerido = 0},
 }
 local ataquesEnergy = {
 	{name = 'Soul Punisher',subName = 'Hak',fuerza = 40000000},
@@ -436,84 +437,32 @@ local ataquesEnergy = {
 local multiQuest = {
 	bossEarth = {
 		{nombre= "SSJG Kakata",minimo = 100500000},
-		{nombre= "Broccoli",minimo = 52500000},
+		{nombre= "Broccoli",minimo = 50000000},
 		{nombre= "SSJB Wukong",minimo = 8000000},
 		{nombre= "Kai-fist Master",minimo = 6025000},
 		{nombre= "SSJ2 Wukong",minimo = 1250000},
 		{nombre= "Perfect Atom",minimo = 875000},
-		{nombre= "Chilly",minimo = 550000},
-		{nombre= "Super Vegetable",minimo = 187500},
-		{nombre= "Mapa",minimo = 50000},
-		{nombre= "Radish",minimo = 39000},
-		{nombre= "Kid Nohag",minimo = 30000},
-		{nombre= "Klirin",minimo = 4000},
+		{nombre= "Chilly",minimo = 590000},
+		{nombre= "Super Vegetable",minimo = 367500},
+		{nombre= "Mapa",minimo = 60000},
+		{nombre= "Radish",minimo = 49000},
+		{nombre= "Kid Nohag",minimo = 40000},
+		{nombre= "Klirin",minimo = 6000},
 	},
 	bossBills = {
 		{nombre= "Vekuta (SSJBUI)",minimo = 5000000000},
 		{nombre= "Wukong Rose",minimo = 4500000000},
 		{nombre= "Vekuta (LBSSJ4)",minimo = 3700000000},
 		{nombre= "Wukong (LBSSJ4)",minimo = 3000000000},
-		{nombre= "Vegetable (LBSSJ4)",minimo = 1400000000},
-		{nombre= "Vis (20%)",minimo = 800000000},
+		{nombre= "Vegetable (LBSSJ4)",minimo = 1600000000},
+		{nombre= "Vis (20%)",minimo = 9000000000},
 		{nombre= "Vills (50%)",minimo = 470000000},
 		{nombre= "Wukong (Omen)",minimo = 300000000},
 		{nombre= "Vegetable (GoD in-training)",minimo = 170000000},
 	}
 }
 
-local transformaciones = {
-	fasesBug = {
-		{name = "Godly SSJ2",fuerza = 8000000},
-		{name = "LSSJ Kaioken",fuerza = 160000},
-		{name = "SSJ2 Kaioken",fuerza = 50000},
-		{name = "Mystic",fuerza = 200000},
-		{name = "SSJ3	",fuerza = 95000},
-		{name = "SSJ Kaioken",fuerza = 16000},
-	},
-	fases = {
-		{name = "Beast",fuerza = 120000000},
-			       {name = "SSJBUI",fuerza = 120000000},
-	 	{name = "Ultra Ego",fuerza =  120000000},
-		{name = "SSJB4",fuerza =50000000},
-	 	{name = "LBSSJ4",fuerza = 100000000},
-		{name = "True God of Creation",fuerza = 30000000},
-		{name = "True God of Destruction",fuerza = 30000000},
-		{name = "SSJR3",fuerza = 50000000},
-		{name = "God of Creation",fuerza = 30000000},
-		{name = "God of Destruction",fuerza = 30000000},
-		{name = "Super Broly",fuerza = 4000000},
-		{name = "Jiren Ultra Instinct",fuerza = 14000000},
-		{name = "Mastered Ultra Instinct",fuerza = 14000000},
-		{name = "Godly SSJ2",fuerza = 8000000},
-		{name = "LSSJG",fuerza = 3000000},
-		{name = "Ultra Instinct Omen",fuerza = 5000000},
-		{name = "LSSJ4",fuerza = 1800000},
-		{name = "SSJG4",fuerza = 1000000},
-		{name = "Evil SSJ",fuerza = 4000000},
-		{name = "Blue Evolution",fuerza = 3500000},
-		{name = "LSSJ3",fuerza = 800000},
-		{name = "Dark Rose",fuerza = 3500000},
-		{name = "SSJ Berseker",fuerza = 3000000},
-		{name = "Kefla SSJ2",fuerza = 3000000},
-		{name = "True Rose",fuerza = 2400000},
-		{name = "SSJ Blue Kaioken",fuerza = 2200000},
-		{name = "SSJ5",fuerza = 550000},
-		{name = "Mystic Kaioken",fuerza = 250000},
-		{name = "SSJ Rose",fuerza = 1400000},
-		{name = "SSJ Blue",fuerza = 1200000},
-		{name = "LSSJ Kaioken",fuerza = 160000},
-		{name = "Corrupt SSJ",fuerza = 700000},
-		{name = "SSJ Rage",fuerza = 700000},
-		{name = "SSJ2 Kaioken",fuerza = 50000},
-		{name = "SSJ4",fuerza = 300000},
-		{name = "Mystic",fuerza = 200000},
-		{name = "LSSJ",fuerza = 140000},
-		{name = "SSJ3",fuerza =95000},
-		{name = "SSJ2 Majin",fuerza = 65000},
-		{name = "Spirit SSJ",fuerza = 65000},
-		{name = "SSJ Kaioken",fuerza = 16000},
-	}
-}
+
 
 local function rebirthzzzz()
 	return folderData.Rebirth.Value
@@ -529,13 +478,6 @@ local function defense()
 end
 local function speed()
 	return folderData.Speed.Value
-end
-
-local function selectedForm()	
-	return game.Players.LocalPlayer.Status.SelectedTransformation.Value
-end
-local function valorFase()	
-	return game.Players.LocalPlayer.Status.Transformation.Value
 end
 
 function characterInvisible()
@@ -568,23 +510,12 @@ function rebirth()
 	game:GetService("ReplicatedStorage"):WaitForChild("Package"):WaitForChild("Events"):WaitForChild("reb"):InvokeServer()
 end
 
-function ejecutarForma()
-	   while isLoop1Active and  selectedForm() ~= valorFase() do
-		pcall(function ()
-			if ki() > (kiRequerido() + 10) then
-				game:GetService("ReplicatedStorage").Package.Events.ta:InvokeServer()
-				task.wait()
-				game:GetService("ReplicatedStorage").Package.Events.AuraTrigger:InvokeServer()
-			end
-		end)
-		wait()
-	end
-end
 
 function iniciarJuego()
 	local player = game.Players.LocalPlayer
 	local data = game.ReplicatedStorage.Datas[player.UserId]
 	game:GetService("ReplicatedStorage").Package.Events.Start:InvokeServer()
+	game.Workspace.Gravity = Vector3.new(0, 1, 0) 
 	game.Players.LocalPlayer.Character.Humanoid.Health = 0
 	if data.Strength.Value>=8000000 then
 		wait(5)
@@ -599,20 +530,6 @@ function iniciarJuego()
 end
 
 
-function transformarse(array)
-	if strength() < 16000 then
-		return
-	end
-	for i,v in pairs(transformaciones[array]) do
-		if strength() >= v.fuerza then
-			equipRemote:InvokeServer(v.name) 
-			if equipRemote:InvokeServer(v.name) then 
-				break 
-			end
-		end
-	end
-	ejecutarForma() 
-end
 
 function noTierraID()
 	return game.placeId ~= 3311165597
@@ -693,7 +610,7 @@ function mundoBills()
 end
 
 function validacionPlanetas()
-	local billsTP = 170000000
+	local billsTP = 300000000
 
 	print('Validando el planeta')
 
@@ -843,8 +760,6 @@ local function acumularStats()
 		
 		cargaAndBloqueo = false
 
-		print('Tienes pocas estadisticas')
-
 		
 		if ki() >= kiRequerido() then
 			ataquesParaStats()
@@ -918,9 +833,6 @@ function empezarFarm()
 
 				warn('estadisticas elegidas '..tostring(statsRequeridosFarm))
 
-				transformarse('fases')
-
-				print('Tranformacion ejecutada')
 				mision()
 
 				print('Mision seleccionada')
@@ -928,8 +840,6 @@ function empezarFarm()
 				local enemigo = misionRival()
 
 				statsPlayerFarmSa = flyi
-
-				print('Enemigo: '..enemigo.Name)
 
 				local function frameEnemigo()
 					return enemigo.HumanoidRootPart.CFrame
@@ -941,18 +851,18 @@ function empezarFarm()
 					return enemigo.Humanoid.Health > 0
 				end
 
-				   while isLoop1Active and  enemigo:FindFirstChild("Humanoid") and vidaEnemigo() and player() do
+				   while isLoop1Active and  enemigo:FindFirstChild("Humanoid") and vidaEnemigo() and player() and isLoop4Active do
 					pcall(function()
-						spawn(function() 
-							sigueEnemigo(framenemigo() * CFrame.new(0, 0, 1))
+										spawn(function() 
+							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 1)) 
 							pcall(function ()
 								statsPlayerFarmSa()
 							end)
 						end)
 						spawn(function() 
-							if ki() >= kiRequerido() and valorMinimo() >= 4000 and isLoop3Active then
+							if ki() >= kiRequerido() and valorMinimo() >= 6000 and isLoop3Active then
 								ataqueEnergy(frameEnemigo(), vidaEnemigo())
-								wait(1)
+								wait()
 							else
 								game:GetService("ReplicatedStorage").Package.Events.p:FireServer("Blacknwhite27", 1)
 							end
@@ -961,26 +871,21 @@ function empezarFarm()
 								local args = {[1] = true}
 					game:GetService("ReplicatedStorage").Package.Events.block:InvokeServer(unpack(args))
 				
-							if ki() >= kiRequerido() and valorMinimo() >= 2000 and  isLoop3Active then
+							if ki() >= kiRequerido() and valorMinimo() >= 2000 and isLoop3Active then
 								ataqueMelee(vidaEnemigo())
-							end
-						end)
-						spawn(function()
-							if selectedForm() ~= valorFase() or selectedForm() == '' or valorFase() == '' then
-                                transformarse('fases');
 							end
 						end)
 					end)
 					wait()
 				end
 				if misionSeleccionada() == '' then
-					wait()
+					wait(1)
 				end
 				if yo.Character.Humanoid.Health <= 0 then
 					repeat
 						wait()
 					until yo.Character.Humanoid.Health > 0
-					wait()
+					wait(1)
 					fly()
 				end
 			end
@@ -1026,16 +931,14 @@ empezarFarm()
     local function loop2()
         while isLoop2Active do
             wait()
-                while isLoop2Active and true do 
-      			local args = {[1] = true}
-					game:GetService("ReplicatedStorage").Package.Events.block:InvokeServer(unpack(args))
-		    end
+
         end
     end
 
     local function loop3()
         while isLoop3Active do
             wait(1)
+            
          wait(8)
 if (game.PlaceId ~= 5151400895) then
     repeat
@@ -1044,7 +947,6 @@ if (game.PlaceId ~= 5151400895) then
         game.ReplicatedStorage.Datas:WaitForChild(game.Players.LocalPlayer.UserId)
 
     wait()
-
     game.ReplicatedStorage.Package.Events.Start:InvokeServer()
     game.ReplicatedStorage.Package.Events.Start:InvokeServer()
     game.ReplicatedStorage.Package.Events.Start:InvokeServer()
@@ -1069,6 +971,8 @@ local Forms = {'Beast','Ultra Ego','SSJB4','True God of Creation','True God of D
                 'Jiren Ultra Instinct', 'Mastered Ultra Instinct','Godly SSJ2', 'Ultra Instinct Omen', 'Evil SSJ','Blue Evolution',
                 'Dark Rose','Kefla SSJ2','SSJ Berserker','True Rose', 'SSJB Kaioken','SSJ Rose', 'SSJ Blue','Corrupt SSJ',
                 'SSJ Rage','SSJG','SSJ4','Mystic','LSSJ','SSJ3','Spirit SSJ','SSJ2 Majin','SSJ2','SSJ Kaioken','SSJ','FSSJ','Kaioken'}
+
+
 
 
 local function transform()
@@ -1102,37 +1006,27 @@ end
     local function loop4()
         while isLoop4Active do
             wait(1)
-wait()
-
-local player = game.Players.LocalPlayer
-local npcPosition = CFrame.new(0, 0, 3) -- Ajusta la posición del NPC según sea necesario
+            local player = game.Players.LocalPlayer 
+local npcPosition = CFrame.new(0, 0, 4.6) 
 
 function returnQuest(useObjective)
     return game:GetService("ReplicatedStorage").Datas[player.UserId].Quest.Value
 end
 
-function teleportToBoss(boss)
-    local humanoidRootPart = player.Character:WaitForChild("HumanoidRootPart")
-    humanoidRootPart.CFrame = boss.HumanoidRootPart.CFrame * npcPosition
-end
-
-function checkMission()
-    local missionName = returnQuest(true)
-    if missionName ~= "" then
-        local boss = game.Workspace.Living:FindFirstChild(missionName)
-        if boss then
-            teleportToBoss(boss)
-        else
+repeat
+    local questValue = returnQuest(true)
+    if questValue ~= "" then
+        for _, boss in ipairs(game.Workspace.Living:GetChildren()) do
+            if boss.Name == questValue and
+               not player.PlayerGui.Main.MainFrame.Frames.Quest.Nop.Visible and
+               boss:FindFirstChild('Humanoid') and
+               boss:FindFirstChild('HumanoidRootPart') and isLoop4Active then
+                player.Character.HumanoidRootPart.CFrame = boss.HumanoidRootPart.CFrame * npcPosition
+            end
         end
     end
-end
-
--- Verifica periódicamente si el jugador está en una misión y lo teletransporta al boss si es así
-while isLoop4Active and true do
-    wait() -- Intervalo de verificación (1 segundo en este caso)
-    checkMission()
-end
- 
+    wait() 
+until false 
         end
     end
 
