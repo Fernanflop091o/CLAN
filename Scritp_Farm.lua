@@ -648,6 +648,8 @@ local function masFuerza()
     end
 end
 
+
+
 local function masEnergy()
 	if energy() < statsRequeridosFarm then
 		local args = {[1] = 1,[2] = true,[3] = CFrame.new(12, 12, 12)}
@@ -728,6 +730,22 @@ end
 
 local function flyi()
 
+end
+
+local function stats()
+local s = game.Players.LocalPlayer.PlayerGui.Main.MainFrame.Frames.Stats
+s.Visible, s.Position = true, UDim2.new(0.3, 0, 0.2, 22)
+s.BackgroundColor3 = Color3.new(0, 0, 0)
+s.Size = UDim2.new(0.1, 298, 0.1, 298)
+
+-- Cambiar el color del texto dentro del objeto "Stats" y agregar contorno rojo
+for _, child in ipairs(s:GetChildren()) do
+    if child:IsA("TextLabel") then
+        child.TextColor3 = Color3.new(0, 0, 0) 
+        child.TextStrokeColor3 = Color3.new(0, 0, 255) 
+        child.TextStrokeTransparency = 0 
+    end
+end 
 end
 
 local function esperandoCargaxd()
@@ -857,6 +875,7 @@ function empezarFarm()
 							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 1)) 
 							pcall(function ()
 								statsPlayerFarmSa()
+													stats()
 							end)
 						end)
 						spawn(function() 
