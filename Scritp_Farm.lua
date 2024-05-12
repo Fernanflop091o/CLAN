@@ -674,6 +674,11 @@ local function masDefensa()
 		print('Suficiente energy!')
 	end
 end
+local function Zom() 
+for i = 1, 26 do
+    keypress(Enum.KeyCode.O)
+end
+end
 local function masSpeed() 
 	keypress(Enum.KeyCode.LeftShift)
 	print('Ejecutando Speed!')
@@ -693,7 +698,8 @@ end
 
 local function fly()
 	local succes,fallo = pcall(function ()
-	wait(2)
+	wait()
+			Zom() 
 		keypress(Enum.KeyCode.Space)
 		task.wait()
 		keyrelease(Enum.KeyCode.Space)
@@ -702,6 +708,7 @@ local function fly()
 		task.wait()
 		keyrelease(Enum.KeyCode.Space)
 		task.wait()
+		Zom() 
 	end)
 	if fallo then
 		warn('fly error '..fallo)
