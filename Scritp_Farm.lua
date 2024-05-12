@@ -436,7 +436,7 @@ local ataquesEnergy = {
 
 local multiQuest = {
 	bossEarth = {
-SSJG Kakata",minimo = 50000000},
+		{nombre= "SSJG Kakata",minimo = 50000000},
         {nombre= "Broccoli",minimo = 15500000},
         {nombre= "SSJB Wukong",minimo = 3000000},
         {nombre= "Kai-fist Master",minimo = 1825000},
