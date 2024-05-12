@@ -772,7 +772,7 @@ s.InputChanged:Connect(function(input)
             s.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end
-    wait(1.2)
+    wait(2)
 end)
 
 
@@ -969,10 +969,13 @@ spawn(function()
 					local args = {[1] = "Blacknwhite27"}
 					game:GetService("ReplicatedStorage").Package.Events.cha:InvokeServer(unpack(args))
 				end)
-	
 				spawn(function()
 					local args = {[1] = true}
 					game:GetService("ReplicatedStorage").Package.Events.block:InvokeServer(unpack(args))
+				end)
+								spawn(function()
+		local args = {[1] = "Blacknwhite27",[2] = 1}
+		game:GetService("ReplicatedStorage").Package.Events.p:FireServer(unpack(args))
 				end)
 			end)
 		end
