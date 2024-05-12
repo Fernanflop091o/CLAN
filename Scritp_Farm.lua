@@ -34,6 +34,7 @@ local userId = player.UserId
 local thumbnailType = Enum.ThumbnailType.HeadShot
 local thumbnailSize = Enum.ThumbnailSize.Size48x48
 local thumbnailUrl = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+local UICorner = Instance.new("UICorner")
 
 
 ScreenGui.Name = "Fernando"
@@ -219,6 +220,8 @@ tpLabel.TextScaled = true
 tpLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
 tpLabel.TextStrokeTransparency = 0
 
+UICorner.CornerRadius = UDim.new(0, 13) 
+UICorner.Parent = MainButton
 MainButton.Parent = ScreenGui
 MainButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 MainButton.BorderSizePixel = 0
@@ -340,6 +343,8 @@ end
 updateMissionName()
 ReplicatedStorage.Datas[Players.LocalPlayer.UserId].Quest:GetPropertyChangedSignal("Value"):Connect(updateMissionName)
 
+
+--funcion de id del avatar
 local function togglePanel()
     panelExpanded = not panelExpanded
     local targetSize = panelExpanded and UDim2.new(0, 150, 0, 100) or UDim2.new(0, 100, 0, 0)
@@ -738,9 +743,9 @@ local player = game.Players.LocalPlayer
 local playerName = player.Name
 
 local s = game.Players.LocalPlayer.PlayerGui.Main.MainFrame.Frames.Stats
-s.Visible, s.Position = true, UDim2.new(0.3, 0, 0.2, 22)
+s.Visible, s.Position = true, UDim2.new(0.408, 0, 0.520, 74)
 s.BackgroundColor3 = Color3.new(0, 0, 9)
-s.Size = UDim2.new(0.1, 298, 0.1, 298)
+s.Size = UDim2.new(0.1, 100, 0.1, 100)
 
 
 for _, child in ipairs(s:GetChildren()) do
@@ -773,7 +778,6 @@ s.InputChanged:Connect(function(input)
             s.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end
-    wait(4)
 end)
 
 
@@ -916,7 +920,6 @@ function empezarFarm()
 							pcall(function ()
 								statsPlayerFarmSa()
 													stats()
-
 							end)
 						end)
 						spawn(function() 
