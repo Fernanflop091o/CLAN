@@ -772,6 +772,7 @@ s.InputChanged:Connect(function(input)
             s.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end
+    wait(1.2)
 end)
 
 
@@ -890,6 +891,7 @@ function empezarFarm()
 				warn('estadisticas elegidas '..tostring(statsRequeridosFarm))
 
 				mision()
+					stats()
 
 				print('Mision seleccionada')
 
@@ -913,7 +915,6 @@ function empezarFarm()
 							sigueEnemigo(frameEnemigo() * CFrame.new(0, 0, 1)) 
 							pcall(function ()
 								statsPlayerFarmSa()
-													stats()
 							end)
 						end)
 						spawn(function() 
