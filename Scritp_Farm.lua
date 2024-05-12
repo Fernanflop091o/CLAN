@@ -402,7 +402,7 @@ local function initSwitches(MenuPanel)
             		 local yo = game:GetService('Players').LocalPlayer
 local folderData = game.ReplicatedStorage.Datas[yo.UserId]
 local afk = game:service'VirtualUser'
-local statsRequeridosFarm = 6000
+local statsRequeridosFarm = 10000
 local events = game.ReplicatedStorage.Package.Events
 local equipRemote = game:GetService("ReplicatedStorage").Package.Events.equipskill 
 local cargaAndBloqueo = true
@@ -917,7 +917,7 @@ function empezarFarm()
 							end)
 						end)
 						spawn(function() 
-							if ki() >= kiRequerido() and valorMinimo() >= 6000 and isLoop3Active then
+							if ki() >= kiRequerido() and valorMinimo() >= 10000 and isLoop3Active then
 								ataqueEnergy(frameEnemigo(), vidaEnemigo())
 								wait()
 							else
