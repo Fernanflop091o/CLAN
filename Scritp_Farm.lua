@@ -733,19 +733,57 @@ local function flyi()
 end
 
 local function stats()
+local player = game.Players.LocalPlayer
+local playerName = player.Name
+
 local s = game.Players.LocalPlayer.PlayerGui.Main.MainFrame.Frames.Stats
 s.Visible, s.Position = true, UDim2.new(0.3, 0, 0.2, 22)
-s.BackgroundColor3 = Color3.new(0, 0, 0)
+s.BackgroundColor3 = Color3.new(0, 0, 9)
 s.Size = UDim2.new(0.1, 298, 0.1, 298)
 
--- Cambiar el color del texto dentro del objeto "Stats" y agregar contorno rojo
+
+for _, child in ipairs(s:GetChildren()) do
+    if child:IsA("TextLabel") and child.Name == "Stats" then
+        child.Text = playerName
+    end
+end
+
+local UserInputService = game:GetService("UserInputService")
+local dragging
+local dragStart
+local startPos
+s.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = s.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+s.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        if dragging then
+            local delta = input.Position - dragStart
+            s.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end
+end)
+
+
 for _, child in ipairs(s:GetChildren()) do
     if child:IsA("TextLabel") then
-        child.TextColor3 = Color3.new(0, 0, 0) 
-        child.TextStrokeColor3 = Color3.new(0, 0, 255) 
-        child.TextStrokeTransparency = 0 
+        child.TextColor3 = Color3.new(0, 0, 0)
+        child.TextStrokeColor3 = Color3.new(0, 1, 0)
+        child.TextStrokeTransparency = 0
+    elseif child.Name == "Close" and child:IsA("TextButton") then
+        child.BackgroundColor3 = Color3.new(0, 1, 0) 
     end
-end 
+end
 end
 
 local function esperandoCargaxd()
