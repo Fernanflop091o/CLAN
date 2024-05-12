@@ -443,7 +443,7 @@ local multiQuest = {
         {nombre= "SSJ2 Wukong",minimo = 1475000},
         {nombre= "Perfect Atom",minimo = 1100000},
         {nombre= "Chilly",minimo = 800000},
-        {nombre= "Super Vegetable",minimo = 227500},
+        {nombre= "Super Vegetable",minimo = 387500},
         {nombre= "Mapa",minimo = 120000},
         {nombre= "Radish",minimo = 80000},
         {nombre= "Kid Nohag",minimo = 45000},
